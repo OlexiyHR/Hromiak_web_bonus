@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
+    <link rel="stylesheet" href="https://cdn.webdatarocks.com/latest/webdatarocks.css">
+</head>
+<body>
+    <div id="report-container"></div>
+
+    <script>
+        function getReportData() {
+            return JSON.parse(localStorage.getItem('cart'));
+        }
+
+        var pivot = new WebDataRocks({
+            container: "#report-container",
+            toolbar: true,
+            report: {
+                dataSource: {
+                    data: getReportData()
+                },
+                slice: {
+                    rows: [
+                        { uniqueName: 'name', caption: 'Назва піци' }
+                    ],
+                    columns: [
+                        { uniqueName: 'Measures', caption: 'Параметри' }
+                    ],
+                    measures: [
+                        { uniqueName: 'quantity', aggregation: 'sum', caption: 'Загальна кількість' },
+                        { uniqueName: 'price', aggregation: 'sum', caption: 'Загальна вартість' }
+                    ]
+                }
+            }
+        });
+    </script>
+</body>
+</html>
